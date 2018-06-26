@@ -1,6 +1,6 @@
 const express = require('express');
 const passport = require('passport');
-const GoogleStrategy = require('passport-google-0auth20').Strategy;
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const keys = require('./config/keys');
 
 const app = express();
@@ -16,6 +16,13 @@ passport.use(
       console.log(accessToken);
     }
   )
+);
+
+app.get(
+  '/auth/google',
+  passport.authenticate('google', {
+    scope: ['profile', 'email']
+  })
 );
 
 // app.get('/', (req, res) => {
